@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Immutable from 'immutable';
 
 import Welcome from './welcome';
 
@@ -8,7 +9,10 @@ class App extends Component {
     super(props);
 
     // init component state here
-    this.state = {};
+    this.state = {
+      notes: Immutable.Map(),
+      //...
+    };
   }
 
   render() {
