@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import Immutable from 'immutable';
+import CreateBar from './note_create_bar';
+import NoteContainer from './note_container';
 
-import Welcome from './welcome';
-
-// example class based component (smart component)
 class App extends Component {
   constructor(props) {
     super(props);
@@ -15,10 +14,31 @@ class App extends Component {
     };
   }
 
+  // click create twice to see the size coming up correctly
+  createNote(noteTitle) {
+    let id = this.state.notes.size;
+    let note = {
+      title: noteTitle,
+      text: '',
+      x: 100,
+      y: 100,
+      zIndex: 0,
+    };
+    console.log(`new note with title: ${noteTitle}, id ${this.state.notes.size}`);
+    this.setState({
+      notes: this.state.notes.set(id, note),
+    });
+    console.log(`note contains: ${this.state.notes.get(this.state.notes.size - 1).title}`);
+    console.log(`note contains: ${this.state.notes.size}`);
+    console.log(`total: ${this.state.notes}`);
+    return;
+  }
+
   render() {
     return (
       <div>
-        <Welcome />
+        <CreateBar onCreateClick={title => this.createNote(title)} />
+        <NoteContainer notes_map={this.state.notes} />
       </div>
     );
   }
