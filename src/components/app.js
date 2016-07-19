@@ -12,17 +12,18 @@ class App extends Component {
       notes: Immutable.Map(),
       //...
     };
+    this.createNote = this.createNote.bind(this);
   }
 
   // click create twice to see the size coming up correctly
   createNote(noteTitle) {
-    let id = this.state.notes.size;
-    let note = {
+    const id = this.state.notes.size;
+    const note = {
       title: noteTitle,
       text: '',
       x: 100,
       y: 100,
-      zIndex: 0,
+      zIndex: id,
     };
     console.log(`new note with title: ${noteTitle}, id ${this.state.notes.size}`);
     this.setState({
