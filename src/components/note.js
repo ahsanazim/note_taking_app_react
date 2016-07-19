@@ -48,7 +48,7 @@ class Note extends Component {
         handle=".handle"
         grid={[25, 25]}
         defaultPosition={{ x: 20, y: 20 }}
-        position={null}
+        position={null}     // create pos
         onStart={this.onStartDrag}
         onDrag={this.onDrag}
         onStop={this.onStopDrag}
@@ -56,8 +56,7 @@ class Note extends Component {
         <div className="handle">
           <div className="titleSection">
             <h1>{`${this.state.note.title}`}</h1>
-            // <i onClick={this.onDeleteClick} className="fa fa-trash" aria-hidden="true"></i>
-            <button onClick={() => this.props.del()}>Del</button>
+            <i onClick={() => this.props.del()} className="fa fa-trash" aria-hidden="true"></i>
           </div>
         </div>
       </Draggable>
