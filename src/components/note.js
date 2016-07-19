@@ -48,7 +48,7 @@ class Note extends Component {
         handle=".handle"
         grid={[25, 25]}
         defaultPosition={{ x: 20, y: 20 }}
-        position={null}     // create pos
+        position={{ x: this.state.note.x, y: this.state.note.y }}     // create pos
         onStart={this.onStartDrag}
         onDrag={this.onDrag}
         onStop={this.onStopDrag}
