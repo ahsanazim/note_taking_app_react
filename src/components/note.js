@@ -54,7 +54,11 @@ class Note extends Component {
         onStop={this.onStopDrag}
       >
         <div className="handle">
-          <h1>{`${this.state.note.title}`}</h1>
+          <div className="titleSection">
+            <h1>{`${this.state.note.title}`}</h1>
+            // <i onClick={this.onDeleteClick} className="fa fa-trash" aria-hidden="true"></i>
+            <button onClick={() => this.props.del()}>Del</button>
+          </div>
         </div>
       </Draggable>
     );

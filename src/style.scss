@@ -5,16 +5,25 @@ body {
   margin: 50px;
 }
 
-
 .react-draggable, .handle {
   cursor: move;
   border: 1px solid;
   box-sizing: border-box;
   box-shadow: 5px 5px 5px #888888;
   padding: 5px;
-  width: 100px;
-  height: 100px;
+  width: 300px;
+  height: 300px;
   font-size: 10px;
   text-align: center;
   background-color: white;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.handle {
+  .titleSection {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
 }
