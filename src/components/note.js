@@ -48,15 +48,16 @@ class Note extends Component {
         handle=".handle"
         grid={[25, 25]}
         defaultPosition={{ x: 20, y: 20 }}
-        position={{ x: this.state.note.x, y: this.state.note.y }}     // create pos
+        position={{ x: this.state.note.x, y: this.state.note.y }}
         onStart={this.onStartDrag}
         onDrag={this.onDrag}
         onStop={this.onStopDrag}
       >
-        <div className="handle">
+        <div className="note_main">
           <div className="titleSection">
-            <h1>{`${this.state.note.title}`}</h1>
+            <p>{`${this.state.note.title}`}</p>
             <i onClick={() => this.props.del()} className="fa fa-trash" aria-hidden="true"></i>
+            <i className="fa fa-arrows handle" aria-hidden="true"></i>
           </div>
         </div>
       </Draggable>

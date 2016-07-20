@@ -16,6 +16,7 @@ class CreateBar extends Component {
   render() {
     return (
       <div id="createBar">
+        <i className="fa fa-refresh fa-spin fa-3x fa-fw"></i>
         <input onChange={this.onInputChange} value={this.state.notetitle} placeholder={"new note title"} />
         <button onClick={() => this.props.onCreateClick(this.state.notetitle)}>Create</button>
       </div>

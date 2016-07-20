@@ -1,30 +1,73 @@
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: 'PT Sans', sans-serif;
   color: rgb(10%, 10%, 10%);
-  background: darken(white, 5%);
+  background-color: white;
   margin: 50px;
 }
 
-.react-draggable, .handle {
-  cursor: move;
+#createBar{
+  text-align: center;
+  * {
+    padding: 2px 6px;
+  }
+  i {
+    font-size: 13px;
+    color: rgb(10%, 10%, 10%);
+  }
+  input {
+    border-radius: 0px;
+    border: solid #000;
+    border-width: 1px 1px 1px 1px;
+    height: 100%;
+    width: 300px;
+  }
+  button {
+    border-radius: 0px;
+    border: solid #000;
+    border-width: 1px 1px 1px 0px;
+    background-color: white;
+    text-transform: lowercase;
+  }
+  button:hover {
+    background-color: black;
+    color: white;
+  }
+  input, button {
+    font-size: 13px;
+  }
+  input:focus, button:focus {
+    outline: 0px;
+  }
+}
+
+.note_main {
+  font-family: "Roboto", sans-serif;
+  position: absolute;
   border: 1px solid;
   box-sizing: border-box;
-  box-shadow: 5px 5px 5px #888888;
+  box-shadow: 3px 3px 3px #888888;
   padding: 5px;
-  width: 150px;
-  height: 150px;
-  font-size: 10px;
+  width: 160px;
+  height: 160px;
+  font-size: 17px;
   text-align: center;
   background-color: white;
   display: flex;
   flex-flow: column nowrap;
-}
-
-.handle {
-  position: absolute;
   .titleSection {
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-end;
     align-items: center;
+    p {
+      margin-top: 5px;
+      margin-bottom: 10px;
+      margin-right: auto;
+    }
+    i {
+      padding: 3px;
+    }
+  }
+  .handle {
+    cursor: move;
   }
 }
