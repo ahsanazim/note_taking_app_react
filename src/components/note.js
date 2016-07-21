@@ -26,16 +26,17 @@ class Note extends Component {
   https://github.com/mzabriskie/react-draggable/blob/master/example/index.html
  */
   onDrag(e, ui) {
-    const { x, y } = this.state.note;
-    this.setState({
-      note: {
-        x: x + ui.deltaX,
-        y: y + ui.deltaY,
-        title: this.state.note.title,
-        text: this.state.note.text,
-        zIndex: this.state.note.zIndex,
-      },
-    });
+    // const { x, y } = this.state.note;
+    // this.setState({
+    //   note: {
+    //     x: x + ui.deltaX,
+    //     y: y + ui.deltaY,
+    //     title: this.state.note.title,
+    //     text: this.state.note.text,
+    //     zIndex: this.state.note.zIndex,
+    //   },
+    // });
+    this.props.drag(this.state.id, e, ui);
   }
 
   onStartDrag() {
@@ -44,18 +45,21 @@ class Note extends Component {
 
   onStopDrag() {
     this.setState({ activeDrags: --this.state.activeDrags });
+    console.log(this.state.note.x);
+    console.log(this.state.note.y);
   }
 
   textEditing(event) {
-    this.setState({
-      note: {
-        x: this.state.note.x,
-        y: this.state.note.y,
-        title: this.state.note.title,
-        text: event.target.value,
-        zIndex: this.state.note.zIndex,
-      },
-    });
+    // this.setState({
+    //   note: {
+    //     x: this.state.note.x,
+    //     y: this.state.note.y,
+    //     title: this.state.note.title,
+    //     text: event.target.value,
+    //     zIndex: this.state.note.zIndex,
+    //   },
+    // });
+    this.props.edit(this.state.id, event);
   }
 
   renderEditIcon() {
@@ -76,13 +80,13 @@ class Note extends Component {
     if (this.state.isEditing) {
       return (
         <div>
-          <textarea value={this.state.note.text} onChange={this.textEditing} />
+          <textarea value={this.props.note.text} onChange={this.textEditing} />
         </div>
       );
     } else {
       return (
         <div>
-          <div id="notEditing" dangerouslySetInnerHTML={{ __html: marked(this.state.note.text || '') }} />
+          <div id="notEditing" dangerouslySetInnerHTML={{ __html: marked(this.props.note.text || '') }} />
         </div>
       );
     }
@@ -94,7 +98,7 @@ class Note extends Component {
         handle=".handle"
         grid={[25, 25]}
         defaultPosition={{ x: 20, y: 20 }}
-        position={{ x: this.state.note.x, y: this.state.note.y }}
+        position={null}
         onStart={this.onStartDrag}
         onDrag={this.onDrag}
         onStop={this.onStopDrag}
