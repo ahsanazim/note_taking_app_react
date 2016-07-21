@@ -81,7 +81,9 @@ class Note extends Component {
       );
     } else {
       return (
-        <div id="notEditing" dangerouslySetInnerHTML={{ __html: marked(this.state.note.text || '') }} />
+        <div>
+          <div id="notEditing" dangerouslySetInnerHTML={{ __html: marked(this.state.note.text || '') }} />
+        </div>
       );
     }
   }
