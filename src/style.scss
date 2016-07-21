@@ -1,13 +1,14 @@
+$primary-color: #c0392b;
+
 body {
-  font-family: 'PT Sans', sans-serif;
+  font-family: "Roboto", sans-serif;
   color: rgb(10%, 10%, 10%);
-  background-color: white;
-  // background-image: url(http://wallpapercave.com/wp/t9LM0aa.png);
+  background-color: $primary-color;
   margin: 50px;
 }
 
 /*
-  the inset styling for create bar was adapted from the following:
+  the inset styling #707070 for create bar was adapted from the following:
   http://callmenick.com/post/various-css-input-text-styles
 */
 #createBar{
@@ -18,43 +19,47 @@ body {
   i {
     font-size: 13px;
     color: rgb(10%, 10%, 10%);
+    color: white;
   }
   input {
     height: 100%;
     width: 300px;
     padding: 10px;
     border: solid 1px #fff;
-    box-shadow: inset 1px 1px 2px 0 #707070;
+    box-shadow: inset 1px 1px 2px 0 $primary-color;
     transition: box-shadow 0.3s;
   }
   button {
+    font-family: 'Montserrat', sans-serif;
     padding: 10px;
+    font-size: 20px;
     border: none;
     background-color: transparent;
     text-transform: lowercase;
+    color: white;
+    max-height: 38px;
+    vertical-align: bottom;
   }
   button:hover {
-    background-color: black;
-    color: white;
+    background-color: white;
+    color: $primary-color;
   }
-  input, button {
+  input {
     font-size: 13px;
   }
   input:focus {
     box-shadow: inset 1px 1px 2px 0 #c9c9c9;
   }
-
   button:focus {
-    border-bottom: solid 2px #969696;
+    outline: none;
   }
 }
 
 .note_main {
   font-family: "Roboto", sans-serif;
   position: absolute;
-  border: 1px solid;
+  border: 1px double $primary-color;
   box-sizing: border-box;
-  box-shadow: 3px 3px 3px #888888;
   padding: 5px;
   width: auto;
   height: auto;
@@ -105,7 +110,7 @@ body {
         width:inherit;
       }
       #notEditing {
-        border-top: 1px solid;
+        border-top: 3px solid $primary-color;
       }
     }
   }
