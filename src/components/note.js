@@ -7,9 +7,7 @@ class Note extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: props.id,
       activeDrags: 0,
-      note: props.note,
       isEditing: false,
     };
 
@@ -26,17 +24,7 @@ class Note extends Component {
   https://github.com/mzabriskie/react-draggable/blob/master/example/index.html
  */
   onDrag(e, ui) {
-    // const { x, y } = this.state.note;
-    // this.setState({
-    //   note: {
-    //     x: x + ui.deltaX,
-    //     y: y + ui.deltaY,
-    //     title: this.state.note.title,
-    //     text: this.state.note.text,
-    //     zIndex: this.state.note.zIndex,
-    //   },
-    // });
-    this.props.drag(this.state.id, e, ui);
+    this.props.drag(this.props.note.id, e, ui);
   }
 
   onStartDrag() {
@@ -45,21 +33,10 @@ class Note extends Component {
 
   onStopDrag() {
     this.setState({ activeDrags: --this.state.activeDrags });
-    console.log(this.state.note.x);
-    console.log(this.state.note.y);
   }
 
   textEditing(event) {
-    // this.setState({
-    //   note: {
-    //     x: this.state.note.x,
-    //     y: this.state.note.y,
-    //     title: this.state.note.title,
-    //     text: event.target.value,
-    //     zIndex: this.state.note.zIndex,
-    //   },
-    // });
-    this.props.edit(this.state.id, event);
+    this.props.edit(this.props.note.id, event);
   }
 
   renderEditIcon() {
@@ -105,7 +82,7 @@ class Note extends Component {
       >
         <div className="note_main">
           <div className="titleSection">
-            <p>{`${this.state.note.title}`}</p>
+            <p>{`${this.props.note.title}`}</p>
             {this.renderEditIcon()}
             <i onClick={() => this.props.del()} className="fa fa-trash" aria-hidden="true"></i>
             <i className="fa fa-arrows handle" aria-hidden="true"></i>

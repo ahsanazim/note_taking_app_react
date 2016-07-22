@@ -21,7 +21,6 @@ class App extends Component {
   }
 
   onDeleteClick(id) {
-    console.log(`deleting id ${id}`);
     this.setState({
       notes: this.state.notes.delete(id),
     });
@@ -31,19 +30,14 @@ class App extends Component {
     this.setState({
       notes: this.state.notes.update(id, (n) => { return Object.assign({}, n, { x: n.x + ui.deltaX, y: n.y + ui.deltaY }); }),
     });
-    console.log(this.state.notes.get(id).x);
-    console.log(this.state.notes.get(id).x);
   }
 
   edit(id, event) {
-    console.log(`new text: ${event.target.value}`);
     this.setState({
       notes: this.state.notes.update(id, (n) => { return Object.assign({}, n, { text: event.target.value }); }),
     });
-    console.log(this.state.notes.get(id).text);
   }
 
-  // click create twice to see the size coming up correctly
   createNote(noteTitle) {
     const id = this.idCount;
     const note = {
@@ -52,20 +46,17 @@ class App extends Component {
       x: 100,
       y: 100,
       zIndex: this.idCount,
+      id: this.idCount,
     };
     this.idCount++;
 
-    console.log(`new note with title: ${noteTitle}, id ${this.state.notes.size}`);
     this.setState({
       notes: this.state.notes.set(id, note),
     });
-    console.log(`note contains: ${this.state.notes.size}`);
-    console.log(`total: ${this.state.notes}`);
     return;
   }
 
   render() {
-    console.log(`total (from within app render): ${this.state.notes}`);
     return (
       <div>
         <CreateBar onCreateClick={title => this.createNote(title)} />
