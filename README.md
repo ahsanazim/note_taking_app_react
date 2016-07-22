@@ -3,7 +3,7 @@
 
 <!--![](./imgs/demo.gif)-->
 
-<img src="https://raw.githubusercontent.com/ahsanazim/note_taking_app_react/master/imgs/demo.gif" width="400">
+<img src="https://raw.githubusercontent.com/ahsanazim/note_taking_app_react/master/imgs/demo.gif" width="600">
 
 hosted at: `http://post-it.surge.sh/`
 
