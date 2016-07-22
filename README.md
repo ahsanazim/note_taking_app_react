@@ -1,4 +1,4 @@
-# ***Post-it***: a realtime collaborative post-it note app 
+# A realtime collaborative post-it note app 
 
 <img src="https://raw.githubusercontent.com/ahsanazim/note_taking_app_react/master/imgs/demo.gif" width="600">
 
