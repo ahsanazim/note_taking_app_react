@@ -1,7 +1,9 @@
 # a realtime collaborative post-it note app 
 ***
 
-![](./imgs/demo.gif)
+<!--![](./imgs/demo.gif)-->
+
+<img src="https://raw.githubusercontent.com/ahsanazim/note_taking_app_react/master/imgs/demo.gif" height="600">
 
 hosted at: `http://post-it.surge.sh/`
 
