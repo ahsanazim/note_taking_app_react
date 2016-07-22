@@ -28,6 +28,7 @@ class Note extends Component {
   }
 
   onStartDrag() {
+    this.props.bringToFront(this.props.note.id);
     this.setState({ activeDrags: ++this.state.activeDrags });
   }
 
@@ -70,17 +71,19 @@ class Note extends Component {
   }
 
   render() {
+    console.log(`${this.props.note.title}: ${this.props.note.zIndex}`);
     return (
       <Draggable
         handle=".handle"
         grid={[25, 25]}
         defaultPosition={{ x: 20, y: 20 }}
-        position={null}
+        position={{ x: this.props.note.x, y: this.props.note.y }}
+        zIndex={this.props.note.zIndex}
         onStart={this.onStartDrag}
         onDrag={this.onDrag}
         onStop={this.onStopDrag}
       >
-        <div className="note_main">
+        <div className="note_main" style={{ zIndex: this.props.note.zIndex }}>
           <div className="titleSection">
             <p>{`${this.props.note.title}`}</p>
             {this.renderEditIcon()}

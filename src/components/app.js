@@ -11,13 +11,14 @@ class App extends Component {
     // init component state here
     this.state = {
       notes: Immutable.Map(),
-      //...
     };
+
     this.createNote = this.createNote.bind(this);
     this.onDeleteClick = this.onDeleteClick.bind(this);
     this.drag = this.drag.bind(this);
     this.edit = this.edit.bind(this);
     this.idCount = 0;
+    this.maxZIndex = 0;
   }
 
   onDeleteClick(id) {
@@ -30,6 +31,17 @@ class App extends Component {
     this.setState({
       notes: this.state.notes.update(id, (n) => { return Object.assign({}, n, { x: n.x + ui.deltaX, y: n.y + ui.deltaY }); }),
     });
+  }
+
+  zIndexBalance(id) {
+    console.log(`before: zIndex - ${this.state.notes.get(id).zIndex}, max zIndex - ${this.maxZIndex}`);
+    if (this.state.notes.get(id).zIndex < this.maxZIndex) {
+      this.setState({
+        notes: this.state.notes.update(id, (n) => { return Object.assign({}, n, { zIndex: this.maxZIndex + 1 }); }),
+      });
+      this.maxZIndex++;
+    }
+    console.log(`after:  zIndex - ${this.state.notes.get(id).zIndex}, max zIndex - ${this.maxZIndex}`);
   }
 
   edit(id, event) {
@@ -48,6 +60,7 @@ class App extends Component {
       zIndex: this.idCount,
       id: this.idCount,
     };
+    this.maxZIndex = this.idCount;
     this.idCount++;
 
     this.setState({
@@ -60,7 +73,10 @@ class App extends Component {
     return (
       <div>
         <CreateBar onCreateClick={title => this.createNote(title)} />
-        <NoteContainer notes_map={this.state.notes} del={(id) => this.onDeleteClick(id)} edit={(nId, event) => this.edit(nId, event)} drag={(nId, e, ui) => this.drag(nId, e, ui)} />
+        <NoteContainer notes_map={this.state.notes} bal={(id) => this.zIndexBalance(id)}
+          del={(id) => this.onDeleteClick(id)} edit={(nId, event) => this.edit(nId, event)}
+          drag={(nId, e, ui) => this.drag(nId, e, ui)}
+        />
       </div>
     );
   }

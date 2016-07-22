@@ -13,7 +13,10 @@ class NoteContainer extends Component {
 
   renderNotes() {
     return this.props.notes_map.entrySeq().map(([id, note]) => {
-      return <Note id={id} note={note} key={id} del={() => this.props.del(id)} edit={(nId, event) => this.props.edit(nId, event)} drag={(nId, e, ui) => this.props.drag(nId, e, ui)} />;
+      return (<Note id={id} note={note} key={id} del={() => this.props.del(id)}
+        edit={(nId, event) => this.props.edit(nId, event)} drag={(nId, e, ui) => this.props.drag(nId, e, ui)}
+        bringToFront={(nId) => this.props.bal(nId)}
+      />);
     });
   }
 
