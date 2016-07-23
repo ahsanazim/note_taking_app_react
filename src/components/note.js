@@ -71,7 +71,6 @@ class Note extends Component {
   }
 
   render() {
-    console.log(`${this.props.note.title}: ${this.props.note.zIndex}`);
     return (
       <Draggable
         handle=".handle"

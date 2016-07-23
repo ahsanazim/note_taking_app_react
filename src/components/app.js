@@ -2,56 +2,46 @@ import React, { Component } from 'react';
 import Immutable from 'immutable';
 import CreateBar from './note_create_bar';
 import NoteContainer from './note_container';
+import { updtInternalId,
+         fetchNotes,
+         deleteNote,
+         editNote,
+         dragNote,
+         pushNote,
+         balZIndex } from '../firebase.js';
 
 class App extends Component {
 
   constructor(props) {
     super(props);
 
-    // init component state here
     this.state = {
       notes: Immutable.Map(),
     };
 
     this.createNote = this.createNote.bind(this);
-    this.onDeleteClick = this.onDeleteClick.bind(this);
-    this.drag = this.drag.bind(this);
-    this.edit = this.edit.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
+    this.zIndexBalance = this.zIndexBalance.bind(this);
     this.idCount = 0;
     this.maxZIndex = 0;
   }
 
-  onDeleteClick(id) {
-    this.setState({
-      notes: this.state.notes.delete(id),
-    });
-  }
-
-  drag(id, e, ui) {
-    this.setState({
-      notes: this.state.notes.update(id, (n) => { return Object.assign({}, n, { x: n.x + ui.deltaX, y: n.y + ui.deltaY }); }),
-    });
+  componentDidMount() {
+    fetchNotes(newNotes =>
+      this.setState({
+        notes: Immutable.Map(newNotes),
+      })
+    );
   }
 
   zIndexBalance(id) {
-    console.log(`before: zIndex - ${this.state.notes.get(id).zIndex}, max zIndex - ${this.maxZIndex}`);
     if (this.state.notes.get(id).zIndex < this.maxZIndex) {
-      this.setState({
-        notes: this.state.notes.update(id, (n) => { return Object.assign({}, n, { zIndex: this.maxZIndex + 1 }); }),
-      });
+      balZIndex(id, this.maxZIndex);
       this.maxZIndex++;
     }
-    console.log(`after:  zIndex - ${this.state.notes.get(id).zIndex}, max zIndex - ${this.maxZIndex}`);
-  }
-
-  edit(id, event) {
-    this.setState({
-      notes: this.state.notes.update(id, (n) => { return Object.assign({}, n, { text: event.target.value }); }),
-    });
   }
 
   createNote(noteTitle) {
-    const id = this.idCount;
     const note = {
       title: noteTitle,
       text: '',
@@ -60,13 +50,11 @@ class App extends Component {
       zIndex: this.idCount,
       id: this.idCount,
     };
+    const fbId = pushNote(note);
+    updtInternalId(fbId);
+
     this.maxZIndex = this.idCount;
     this.idCount++;
-
-    this.setState({
-      notes: this.state.notes.set(id, note),
-    });
-    return;
   }
 
   render() {
@@ -74,8 +62,8 @@ class App extends Component {
       <div>
         <CreateBar onCreateClick={title => this.createNote(title)} />
         <NoteContainer notes_map={this.state.notes} bal={(id) => this.zIndexBalance(id)}
-          del={(id) => this.onDeleteClick(id)} edit={(nId, event) => this.edit(nId, event)}
-          drag={(nId, e, ui) => this.drag(nId, e, ui)}
+          del={(id) => deleteNote(id)} edit={(nId, event) => editNote(nId, event.target.value)}
+          drag={(nId, e, ui) => dragNote(nId, this.state.notes.get(nId).x, this.state.notes.get(nId).y, ui)}
         />
       </div>
     );
