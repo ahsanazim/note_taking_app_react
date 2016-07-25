@@ -6,14 +6,9 @@ class Note extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      activeDrags: 0,
-      isEditing: false,
-    };
 
     this.onDrag = this.onDrag.bind(this);
     this.onStartDrag = this.onStartDrag.bind(this);
-    this.onStopDrag = this.onStopDrag.bind(this);
     this.renderTextSection = this.renderTextSection.bind(this);
     this.renderEditIcon = this.renderEditIcon.bind(this);
     this.textEditing = this.textEditing.bind(this);
@@ -30,11 +25,6 @@ class Note extends Component {
 
   onStartDrag() {
     this.props.bringToFront(this.props.note.id);
-    this.setState({ activeDrags: ++this.state.activeDrags });
-  }
-
-  onStopDrag() {
-    this.setState({ activeDrags: --this.state.activeDrags });
   }
 
   textEditing(event) {
@@ -97,7 +87,6 @@ class Note extends Component {
         zIndex={this.props.note.zIndex}
         onStart={this.onStartDrag}
         onDrag={this.onDrag}
-        onStop={this.onStopDrag}
       >
         <div className="note_main" style={{ zIndex: this.props.note.zIndex }}>
           <div className="titleSection">
