@@ -92,6 +92,9 @@ class Note extends Component {
           <div className="textSection">
             {this.renderTextSection()}
           </div>
+          <div className="editingUser">
+            <span>user: </span>{this.props.note.lastEdited}
+          </div>
         </div>
       </Draggable>
     );

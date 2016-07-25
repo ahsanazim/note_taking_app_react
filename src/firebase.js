@@ -1,6 +1,3 @@
-// import firebase from 'firebase/app';
-// require('firebase/database');
-// require('firebase/auth');
 import firebase from 'firebase';
 
 // Set the configuration for your app
@@ -22,8 +19,8 @@ export function fetchNotes(callback) {
   });
 }
 
-export function editNote(id, newText) {
-  database.ref('notes').child(id).update({ text: newText });
+export function editNote(id, newText, username) {
+  database.ref('notes').child(id).update({ text: newText, lastEdited: username });
 }
 
 export function deleteNote(id) {
@@ -34,8 +31,9 @@ export function dragNote(id, x, y, ui) {
   database.ref('notes').child(id).update({ x: x + ui.deltaX, y: y + ui.deltaY });
 }
 
-export function pushNote(note) {
+export function pushNote(note, username) {
   const key = database.ref('notes').push(note).key;
+  database.ref('notes').child(key).update({ lastEdited: username });
   return key;
 }
 
