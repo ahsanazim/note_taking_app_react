@@ -15,7 +15,7 @@ class NoteContainer extends Component {
     return this.props.notes_map.entrySeq().map(([id, note]) => {
       return (<Note id={id} note={note} key={id} del={() => this.props.del(id)}
         edit={(nId, event) => this.props.edit(nId, event)} drag={(nId, e, ui) => this.props.drag(nId, e, ui)}
-        bringToFront={(nId) => this.props.bal(nId)}
+        bringToFront={(nId) => this.props.bal(nId)} setNotEditing={() => this.props.setNotEditing(id)}
       />);
     });
   }

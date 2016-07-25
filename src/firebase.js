@@ -24,7 +24,7 @@ export function fetchNotes(callback) {
 }
 
 export function editNote(id, newText, username) {
-  database.ref('notes').child(id).update({ text: newText, lastEdited: username });
+  database.ref('notes').child(id).update({ text: newText, lastEdited: username, isEditing: true });
 }
 
 export function deleteNote(id) {
@@ -60,4 +60,13 @@ export function pushNote(note, username) {
 
 export function updtInternalId(id) {
   database.ref('notes').child(id).update({ id });
+}
+
+export function setNotEditing(id) {
+  let isEditingCurr;
+  database.ref('notes').child(id).once('value')
+  .then((snapshot) => {
+    isEditingCurr = snapshot.val().isEditing;
+    database.ref('notes').child(id).update({ isEditing: !isEditingCurr });
+  });
 }

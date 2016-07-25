@@ -9,7 +9,8 @@ import { updtInternalId,
          editNote,
          dragNote,
          pushNote,
-         balZIndex } from '../firebase.js';
+         balZIndex,
+         setNotEditing } from '../firebase.js';
 
 class App extends Component {
 
@@ -48,6 +49,7 @@ class App extends Component {
       lastEdited: '',
       zIndex: 0,
       id: '',
+      isEditing: false,
     };
     const fbId = pushNote(note, this.state.name);
     updtInternalId(fbId);
@@ -62,6 +64,7 @@ class App extends Component {
         <NoteContainer notes_map={this.state.notes} bal={(id) => balZIndex(id)}
           del={(id) => deleteNote(id)} edit={(nId, event) => editNote(nId, event.target.value, this.state.name)}
           drag={(nId, e, ui) => dragNote(nId, this.state.notes.get(nId).x, this.state.notes.get(nId).y, ui)}
+          setNotEditing={(id) => setNotEditing(id)}
         />
       </div>
     );

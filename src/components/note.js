@@ -17,6 +17,7 @@ class Note extends Component {
     this.renderTextSection = this.renderTextSection.bind(this);
     this.renderEditIcon = this.renderEditIcon.bind(this);
     this.textEditing = this.textEditing.bind(this);
+    this.renderEditingUser = this.renderEditingUser.bind(this);
   }
 
 /*
@@ -42,20 +43,20 @@ class Note extends Component {
 
   renderEditIcon() {
     let iconText = '';
-    if (this.state.isEditing) {
+    if (this.props.note.isEditing) {
       iconText = 'fa fa-check';
     } else {
       iconText = 'fa fa-pencil-square-o';
     }
     return (
       <div>
-        <i onClick={() => this.setState({ isEditing: !this.state.isEditing })} className={iconText} aria-hidden="true"></i>
+        <i onClick={this.props.setNotEditing} className={iconText} aria-hidden="true"></i>
       </div>
     );
   }
 
   renderTextSection() {
-    if (this.state.isEditing) {
+    if (this.props.note.isEditing) {
       return (
         <div>
           <textarea value={this.props.note.text} onChange={this.textEditing} />
@@ -65,6 +66,22 @@ class Note extends Component {
       return (
         <div>
           <div id="notEditing" dangerouslySetInnerHTML={{ __html: marked(this.props.note.text || '') }} />
+        </div>
+      );
+    }
+  }
+
+  renderEditingUser() {
+    if (this.props.note.isEditing) {
+      return (
+        <div>
+          <span>editing: </span>{this.props.note.lastEdited}
+        </div>
+
+      );
+    } else {
+      return (
+        <div>
         </div>
       );
     }
@@ -93,7 +110,7 @@ class Note extends Component {
             {this.renderTextSection()}
           </div>
           <div className="editingUser">
-            <span>user: </span>{this.props.note.lastEdited}
+            {this.renderEditingUser()}
           </div>
         </div>
       </Draggable>
