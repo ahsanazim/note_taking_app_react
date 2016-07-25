@@ -16,6 +16,10 @@ const database = firebase.database();
 export function fetchNotes(callback) {
   database.ref('notes').on('value', (snapshot) => {
     callback(snapshot.val());
+    if (!snapshot.exists()) {
+      console.log('entered');
+      database.ref('/').update({ maxZIndex: 0 });
+    }
   });
 }
 
@@ -31,16 +35,29 @@ export function dragNote(id, x, y, ui) {
   database.ref('notes').child(id).update({ x: x + ui.deltaX, y: y + ui.deltaY });
 }
 
+export function balZIndex(id) {
+  let currZIndex, maxZIndex;
+  database.ref('notes').child(id).once('value')
+  .then((snapshot) => {
+    currZIndex = snapshot.val().zIndex;
+    return database.ref('maxZIndex').once('value');
+  })
+  .then((snapshot) => {
+    maxZIndex = snapshot.val();
+    if ((currZIndex < maxZIndex) || (maxZIndex === 0)) {
+      database.ref('notes').child(id).update({ zIndex: maxZIndex + 1 });
+      database.ref('/').update({ maxZIndex: maxZIndex + 1 });
+    }
+  });
+}
+
 export function pushNote(note, username) {
   const key = database.ref('notes').push(note).key;
   database.ref('notes').child(key).update({ lastEdited: username });
+  balZIndex(key);
   return key;
 }
 
 export function updtInternalId(id) {
   database.ref('notes').child(id).update({ id });
-}
-
-export function balZIndex(id, maxZIndex) {
-  database.ref('notes').child(id).update({ zIndex: maxZIndex + 1 });
 }
