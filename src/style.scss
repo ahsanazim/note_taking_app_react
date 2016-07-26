@@ -1,5 +1,6 @@
 /* color from https://flatuicolors.com/ */
 $primary-color: #c0392b;
+$basic-green: #2ecc71;
 
 body {
   font-family: "Roboto", sans-serif;
@@ -136,7 +137,7 @@ body {
   width: 100%;
   height: 100%;
   flex-flow: column nowrap;
-  background-color: #2ecc71;
+  background-color: $basic-green;
   position: absolute;
   top: 0px;
   left: 0px;
@@ -151,7 +152,40 @@ body {
     padding-right: 30px;
     line-height: 2em;
   }
-  div {
+  .signUpIn {
+    display: flex;
+    flex-flow: row nowrap;
+    text-align: center;
+    justify-content: center;
+    * {
+      padding: 10px;
+      font-size: 20px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: lighter;
+      color: white;
+    }
+    p:first-child {
+      text-decoration: underline;
+    }
+    button {
+      border-radius: 28px;
+      font-family: 'Montserrat', sans-serif;
+      color: $basic-green;
+      background-color: white;
+      font-size: 20px;
+      padding: 0px 10px;
+      text-decoration: none;
+      line-height: 1em;
+      height: 40px;
+      align-self: center;
+      border: 2px double white;
+    }
+    button:active {
+      background-color: $basic-green;
+      color: white;
+    }
+  }
+  .emailPass {
     margin-top: 50px;
     margin-bottom: 50px;
     display: flex;
@@ -161,29 +195,73 @@ body {
       outline: none;
       font-size: 35px;
       min-height: 53px;
+      padding: 10px;
+      margin: 10px;
     }
     button {
-      outline: none;
-      min-height: 59px;
-      font-size: 30px;
-      margin-left: 20px;
-      border-radius: 0px;
-      padding: 10px 20px;
+      border-radius: 28px;
+      font-family: 'Montserrat', sans-serif;
+      color: $basic-green;
+      background-color: white;
+      font-size: 35px;
+      text-decoration: none;
+      line-height: 1em;
+      height: auto;
+      padding: 15px;
+      align-self: center;
+      border: 2px double white;
+      margin-left: 10px;
     }
+  }
+  #warning {
+    background-color: white;
+    color: $basic-green;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 }
 
-#username {
-  top: 0px;
-  left: 0px;
-  position: absolute;
-  background-color: white;
-  color: $primary-color;
-  padding: 6px;
-  height: auto;
-  width: auto;
-  text-align: center;
-  font-family: 'Montserrat', sans-serif;
+.topBar {
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  margin: 0px;
+  #username {
+    top: 0px;
+    left: 0px;
+    position: absolute;
+    background-color: white;
+    color: $primary-color;
+    padding: 6px;
+    height: auto;
+    width: auto;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+  }
+  #signOut {
+    top: 0;
+    right: 0;
+    position: absolute;
+    button {
+      border-radius: 0px;
+      font-size: 17px;
+      font-family: 'Montserrat', sans-serif;
+      color: white;
+      background-color: $primary-color;
+      border: none;
+      text-decoration: none;
+      padding: 6px;
+      height: auto;
+      width: auto;
+      text-align: center;
+    }
+    button:hover {
+      text-decoration: underline;
+    }
+    i {
+      color: white;
+    }
+  }
 }
 
 .example-enter {

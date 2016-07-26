@@ -1,6 +1,5 @@
 import firebase from 'firebase';
 
-// Set the configuration for your app
 const config = {
   apiKey: 'AIzaSyBDuTuJZgrL0z3eLw3CscZ5hbUSx2orWeQ',
   authDomain: 'real-time-post-it-app.firebaseapp.com',
@@ -17,7 +16,6 @@ export function fetchNotes(callback) {
   database.ref('notes').on('value', (snapshot) => {
     callback(snapshot.val());
     if (!snapshot.exists()) {
-      console.log('entered');
       database.ref('/').update({ maxZIndex: 0 });
     }
   });
@@ -68,5 +66,50 @@ export function setNotEditing(id) {
   .then((snapshot) => {
     isEditingCurr = snapshot.val().isEditing;
     database.ref('notes').child(id).update({ isEditing: !isEditingCurr });
+  });
+}
+
+export function authSignIn(email, password) {
+  return new Promise((resolve, reject) => {
+    firebase.auth().signInWithEmailAndPassword(email, password)
+    .then(() => {
+      resolve('no problems');
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(`${errorCode}: ${errorMessage}`);
+      reject(`ERROR! ${errorMessage}`);
+    });
+  });
+}
+
+export function authSignUp(email, password) {
+  return new Promise((resolve, reject) => {
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then(() => {
+      resolve('no problems');
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(`${errorCode}: ${errorMessage}`);
+      reject(`ERROR! ${errorMessage}`);
+    });
+  });
+}
+
+export function authSignOut() {
+  return new Promise((resolve, reject) => {
+    firebase.auth().signOut()
+    .then(() => {
+      resolve();
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(`${errorCode}: ${errorMessage}`);
+      reject(`ERROR! ${errorMessage}`);
+    });
   });
 }
