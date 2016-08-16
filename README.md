@@ -5,6 +5,9 @@
 hosted at: `http://post-it.surge.sh/`
 
 
+### different from other branches because it uses my custom-made websockets as the backend instead of firebase
+
+
 ## Short general overview:
 
 This post-it note app was built using React, with an emphasis on the use of separate components for separate parts of app functionality.
