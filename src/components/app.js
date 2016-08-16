@@ -4,7 +4,7 @@ import CreateBar from './note_create_bar';
 import NoteContainer from './note_container';
 import PopUp from './pop_up.js';
 import { updtInternalId,
-         fetchNotes,
+        //  fetchNotes,
          deleteNote,
          editNote,
          dragNote,
@@ -12,11 +12,20 @@ import { updtInternalId,
          balZIndex,
          setNotEditing,
          authSignOut } from '../firebase.js';
+import io from 'socket.io-client';
+
+const socketserver = 'http://localhost:9090';
 
 class App extends Component {
 
   constructor(props) {
     super(props);
+
+    this.socket = io(socketserver);
+    this.socket.on('connect', () => { console.log('socket.io connected'); });
+    this.socket.on('disconnect', () => { console.log('socket.io disconnected'); });
+    this.socket.on('reconnect', () => { console.log('socket.io reconnected'); });
+    this.socket.on('error', (error) => { console.log(error); });
 
     this.state = {
       notes: Immutable.Map(),
@@ -32,11 +41,11 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetchNotes(newNotes =>
+    this.socket.on('notes', notes => {
       this.setState({
-        notes: Immutable.Map(newNotes),
-      })
-    );
+        notes: Immutable.Map(notes),
+      });
+    });
   }
 
   setName(name) {
